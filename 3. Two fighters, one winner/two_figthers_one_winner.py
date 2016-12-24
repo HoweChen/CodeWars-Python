@@ -1,3 +1,6 @@
+import math
+
+
 class Fighter(object):
 
     def __init__(self, name, health, damage_per_attack):
@@ -8,19 +11,38 @@ class Fighter(object):
 
 def declare_winner(fighter1, fighter2, first_attacker):
     # Code your solution here
-    if first_attacker == fighter1.name:
-        pass
-    else:
-        # change fighter order
+    if first_attacker == fighter2.name:
         fighter1, fighter2 = fighter2, fighter1
-    fight_round = 1
-    # while fighter1.health>=0 or fighter2.health>=0:
+    result = get_winner(fighter1, fighter2)
+    return result.name
 
 
-fithter_1 = Fighter("Lew", 10, 2)
-fithter_2 = Fighter("Harry", 5, 4)
-# print(fithter_1.name)
+def get_winner(fighter1, fighter2):
+    fighter1_win_round = math.ceil(
+        fighter1.health / fighter2.damage_per_attack)
+    fighter2_win_round = math.ceil(
+        fighter2.health / fighter1.damage_per_attack)
+    # mod_1 = fighter1_win_round % 1
+    # mod_2 = fighter2_win_round % 1
 
+    # if mod_1 != 0:
+    #     fighter1_win_round = fighter1_win_round - mod_1 + 1
+    # if mod_2 != 0:
+    #     fighter2_win_round = fighter2_win_round - mod_2 + 1
+    # print(fighter1_win_round)
+    # print(fighter2_win_round)
+    if fighter1_win_round >= fighter2_win_round:
+        return fighter1
+    else:
+        return fighter2
+
+
+fighter_1 = Fighter("Lew", 10, 2)
+fighter_2 = Fighter("Harry", 5, 4)
+print(declare_winner(fighter_1, fighter_2, 'Lew'))
+print(declare_winner(fighter_1, fighter_2, 'Harry'))
+print(declare_winner(Fighter("Jerry", 30, 3), Fighter("Harald", 20, 5), "Jerry"))
+print(declare_winner(Fighter("Jerry", 30, 3), Fighter("Harald", 20, 5), "Harald"))
 
 # Create a function that returns the name of the winner in a fight between
 # two fighters.
